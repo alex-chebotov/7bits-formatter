@@ -13,22 +13,6 @@ import java.io.OutputStream;
  */
 public class Processor implements IProcessor{
 
-/*    Reader readerProcessor;
-    Writer writerProcessor;
-    Formatter formatterProcessor;
-    int bufSizeProcessor;
-
-
-    public Processor(Reader reader, Writer writer, Formatter formatter, int bufSize) {
-
-        readerProcessor = reader;
-        writerProcessor = writer;
-        formatterProcessor = formatter;
-        bufSizeProcessor = bufSize;
-
-    }*/
-
-
     InputStream readerProcessor;
     OutputStream writerProcessor;
     Formatter formatterProcessor;
@@ -43,7 +27,6 @@ public class Processor implements IProcessor{
 
     }
 
-
     public void process() throws IOException {
 
         byte[] dataStreamInput;
@@ -53,26 +36,13 @@ public class Processor implements IProcessor{
         Writer writer = new Writer();
         Formatter formatter = new Formatter();
 
-        // dataStream = reader.read(readerProcessor, bufSizeProcessor);
-
-        // System.out.println(dataStream);
-
-        // long num = 55555;
-
         while (true) {
 
             dataStreamInput = reader.read(readerProcessor, bufSizeProcessor);
 
-            // System.out.println(dataStream);
-            //System.out.println(dataStream.length);
-
             if (dataStreamInput.length > 0) {
 
-                // System.out.println("Hi2!");
-
                 dataStreamOutput = formatter.format(dataStreamInput);
-
-                // System.out.println("Hi3!");
 
                 writer.write(writerProcessor, dataStreamOutput);
 
@@ -81,8 +51,6 @@ public class Processor implements IProcessor{
                 break;
 
             }
-
-            // num--;
 
         }
 
