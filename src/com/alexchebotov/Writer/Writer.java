@@ -7,17 +7,6 @@ import java.io.*;
  */
 public class Writer implements IWriter {
 
-/*    private static File fileOut;
-
-    private static OutputStream fileStream;
-
-    public Writer(File file) throws FileNotFoundException {
-
-        fileOut = file;
-
-        OutputStream fileStream = new FileOutputStream(fileOut);
-
-    }*/
 
     public void write(OutputStream out, byte[] dataStreamOutput) throws IOException {
 
@@ -32,16 +21,5 @@ public class Writer implements IWriter {
         out.close();
 
     }
-
-
-/*    private File fileOut = new File("/home/protomint/JavaProjects/7bits/7bits-checkstyle.xml");
-
-    OutputStream fileStream = new FileOutputStream(fileOut);
-
-    Writer fileWriter = new OutputStreamWriter(fileStream, "utf-8");
-
-    PrintWriter printWriter = new PrintWriter(fileWriter);
-
-    printWriter.println("hello");*/
 
 }
