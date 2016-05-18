@@ -14,8 +14,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        fileIn = new File("/home/protomint/JavaProjects/7bits/format/someJavaCodeInput.java");
-        fileOut = new File("/home/protomint/JavaProjects/7bits/format/someJavaCodeOutput.java");
+        fileIn = new File("/home/protomint/JavaProjects/7bits/CodeFormatter/someJavaCodeInput");
+        fileOut = new File("/home/protomint/JavaProjects/7bits/CodeFormatter/someJavaCodeOutput");
 
         bufSize = 1024;
 
