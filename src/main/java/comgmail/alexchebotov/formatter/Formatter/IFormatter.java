@@ -5,6 +5,6 @@ package comgmail.alexchebotov.formatter.Formatter;
  */
 public interface IFormatter {
 
-    char format(char dataStreamInput);
+    char[] format(char dataStreamInput);
 
 }

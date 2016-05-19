@@ -32,8 +32,10 @@ public class Handler implements IHandler {
 
     public void process() throws IOException {
 
-        int dataStreamInput;
-        char dataStreamOutput;
+        byte[] dataStreamInput;
+        byte[] dataStreamOutput;
+        char[] characterSet = new char[0];
+
 
         FileReader fileReader = new FileReader();
         InputStream streamIn = fileReader.createStream(fileIn);
@@ -58,7 +60,12 @@ public class Handler implements IHandler {
 
                 dataStreamInput = fileReader.read(streamIn, bufferSize);
 
-                dataStreamOutput = formatter.format((char) dataStreamInput);
+                for (byte item : dataStreamInput) {
+
+                    characterSet = formatter.format((char) item);
+                }
+
+                dataStreamOutput = new String(characterSet).getBytes();
 
                 fileWriter.write(streamOut, dataStreamOutput);
 

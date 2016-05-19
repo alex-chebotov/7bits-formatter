@@ -15,6 +15,6 @@ public interface IReader {
      * @return symbols by symbols extracted from the data portions
      * @throws IOException
      */
-    char read(final InputStream stream, int bufferSize) throws IOException;
+    byte[] read(final InputStream stream, int bufferSize) throws IOException;
 
 }

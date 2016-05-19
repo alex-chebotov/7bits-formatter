@@ -21,11 +21,9 @@ public class FileWriter implements IWriter {
     }
 
 
-    public void write(OutputStream stream, char dataStreamOutput) throws IOException {
+    public void write(OutputStream stream, byte[] dataStreamOutput) throws IOException {
 
-        byte dataStream = (byte) dataStreamOutput;
-
-        stream.write(dataStream);
+        stream.write(dataStreamOutput);
 
     }
 

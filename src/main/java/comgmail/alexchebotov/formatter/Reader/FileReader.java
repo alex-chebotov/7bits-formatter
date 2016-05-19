@@ -26,11 +26,9 @@ public class FileReader implements IReader {
      * @return symbols by symbols extracted from the data portions
      * @throws IOException
      */
-    public char read(final InputStream stream, int bufferSize) throws ReaderException, IOException {
+    public byte[] read(final InputStream stream, int bufferSize) throws ReaderException, IOException {
 
         byte[] buffer = new byte[bufferSize];
-
-        char character = ' ';
 
         int stopByte;
 
@@ -42,16 +40,7 @@ public class FileReader implements IReader {
 
         }
 
-        for (byte item : buffer) {
-
-            character = (char) item;
-
-        }
-
-        //System.out.println(character);
-
-        return character;
-
+        return buffer;
     }
 
     /**

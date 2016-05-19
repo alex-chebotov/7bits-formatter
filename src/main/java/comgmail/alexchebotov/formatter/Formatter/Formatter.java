@@ -5,32 +5,36 @@ package comgmail.alexchebotov.formatter.Formatter;
  */
 public class Formatter implements IFormatter {
 
-    public char format(char dataStreamInput) {
+    public char[] format(char dataStreamInput) {
+
+        char[]characterSet;
+        char[] markCurly = {'{' , '\n' , ' ' , ' ' , ' ' , ' '};
+        char[] markEndOfLine = {';' , '\n'};
+        char[] markDefault = {dataStreamInput};
 
         char character = dataStreamInput;
-        char mark;
 
         switch (character) {
 
             case '{':
-                mark = '{' + '\\' + 'n';
+                characterSet = markCurly;
 //                System.out.println(mark);
                 break;
 
             case ';':
-                mark = '\\' + 'n';
+                characterSet = markEndOfLine;
 //                System.out.println(mark);
                 break;
 
             default:
-                mark = character;
+                characterSet = markDefault;
                 break;
 
         }
 
         //System.out.println(mark);
 
-        return mark;
+        return characterSet;
 
     }
 }

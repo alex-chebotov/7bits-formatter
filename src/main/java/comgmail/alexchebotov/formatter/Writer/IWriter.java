@@ -8,6 +8,6 @@ import java.io.OutputStream;
  */
 public interface IWriter {
 
-    void write(OutputStream stream, char dataStreamOutput) throws IOException;
+    void write(OutputStream stream, byte[] dataStreamOutput) throws IOException;
 
 }
