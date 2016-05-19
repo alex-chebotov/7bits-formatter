@@ -5,50 +5,32 @@ package comgmail.alexchebotov.formatter.Formatter;
  */
 public class Formatter implements IFormatter {
 
-    public byte[] format(byte[] dataStreamInput) {
+    public char format(char dataStreamInput) {
 
-        String tab = "";
+        char character = dataStreamInput;
+        char mark;
 
+        switch (character) {
 
-        StringBuffer sb = new StringBuffer();
+            case '{':
+                mark = '{' + '\\' + 'n';
+//                System.out.println(mark);
+                break;
 
+            case ';':
+                mark = '\\' + 'n';
+//                System.out.println(mark);
+                break;
 
-        for (byte character : dataStreamInput) {
-
-
-            if (character == '{') {
-
-                tab = tab + "    ";
-
-                sb.append("{\n" + tab);
-
-            } else if (character == ';') {
-
-                sb.append(";\n" + tab);
-
-            } else if (character == '}') {
-
-                int index = sb.length();
-                tab = tab.substring(0, tab.length() - 4);
-                sb.append("\n" + tab);
-                sb.append("}");
-
-            } else if (character == 0) {
-
-
-            } else {
-
-                sb.append(((char) character));
-
-            }
+            default:
+                mark = character;
+                break;
 
         }
 
-        String dataStreamOutputString = sb.toString();
+        //System.out.println(mark);
 
-        byte[] dataStreamOutput = dataStreamOutputString.getBytes();
+        return mark;
 
-        return dataStreamOutput;
     }
-
 }

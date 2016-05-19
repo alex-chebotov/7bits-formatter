@@ -1,36 +1,67 @@
 package comgmail.alexchebotov.formatter.Reader;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 /**
  * Created by protomint on 5/18/16.
  */
 public class FileReader implements IReader {
 
-    public byte[] read(InputStream in, int bufSize) throws IOException {
+    /**
+     * Create InputStream object
+     * @param fileIn - a file provided by "Handler" which "Reader" takes data from
+     * @return InputStream stream object
+     * @throws FileNotFoundException
+     */
+    public InputStream createStream(final File fileIn) throws FileNotFoundException {
 
-        byte[] buf = new byte[bufSize];
-
-        byte[] stopStream = new byte[0];
-
-        int stopByte;
-
-        stopByte = in.read(buf);
-
-        if (stopByte <= 0) {
-
-            buf = stopStream;
-
-        }
-
-        return buf;
+        return new FileInputStream(fileIn);
 
     }
 
-    public void closeStream(InputStream in) throws IOException {
+    /**
+     * Read data from source by "bufferSize" portions
+     * @param stream - stream from the source
+     * @param bufferSize - size of the portion in bits
+     * @return symbols by symbols extracted from the data portions
+     * @throws IOException
+     */
+    public char read(final InputStream stream, int bufferSize) throws ReaderException, IOException {
 
-        in.close();
+        byte[] buffer = new byte[bufferSize];
+
+        char character = ' ';
+
+        int stopByte;
+
+        stopByte = stream.read(buffer);
+
+        if (stopByte == -1) {
+
+            throw new ReaderException();
+
+        }
+
+        for (byte item : buffer) {
+
+            character = (char) item;
+
+        }
+
+        //System.out.println(character);
+
+        return character;
+
+    }
+
+    /**
+     * Close stream source
+     * @param stream to close
+     * @throws IOException
+     */
+    public void closeStream(final InputStream stream) throws IOException {
+
+        stream.close();
 
     }
 

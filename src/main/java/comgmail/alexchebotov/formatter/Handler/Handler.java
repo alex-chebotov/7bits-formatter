@@ -1,6 +1,11 @@
 package comgmail.alexchebotov.formatter.Handler;
 
-import java.io.FileWriter;
+import comgmail.alexchebotov.formatter.Formatter.Formatter;
+import comgmail.alexchebotov.formatter.Reader.FileReader;
+import comgmail.alexchebotov.formatter.Reader.ReaderException;
+import comgmail.alexchebotov.formatter.Writer.FileWriter;
+
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -10,49 +15,63 @@ import java.io.OutputStream;
  */
 public class Handler implements IHandler {
 
-    InputStream readerProcessor;
-    OutputStream writerProcessor;
-    Formatter formatterProcessor;
-    int bufSizeProcessor;
+    private File fileIn;
+    private File fileOut;
+    private static String style;
+    private Formatter formatter;
+    private int bufferSize;
 
-    public Handler(InputStream in, OutputStream out, Formatter formatter, int bufSize) {
+    public Handler(File sourceIn, File sourceOut, final String formatterStyle , int bufSize) {
 
-        readerProcessor = in;
-        writerProcessor = out;
-        formatterProcessor = formatter;
-        bufSizeProcessor = bufSize;
+        fileIn = sourceIn;
+        fileOut = sourceOut;
+        style = formatterStyle;
+        bufferSize = bufSize;
 
     }
 
     public void process() throws IOException {
 
-        byte[] dataStreamInput;
-        byte[] dataStreamOutput;
+        int dataStreamInput;
+        char dataStreamOutput;
 
         FileReader fileReader = new FileReader();
+        InputStream streamIn = fileReader.createStream(fileIn);
+
         FileWriter fileWriter = new FileWriter();
+        OutputStream streamOut = fileWriter.createStream(fileOut);
+
         Formatter formatter = new Formatter();
+
+//        if (style.equals("Java")) {
+//
+//            Formatter formatter = new Formatter();
+//
+//        } else {
+//
+//            Formatter formatter = new Formatter();
+//        }
 
         while (true) {
 
-            dataStreamInput = fileReader.read(readerProcessor, bufSizeProcessor);
+            try {
 
-            if (dataStreamInput.length > 0) {
+                dataStreamInput = fileReader.read(streamIn, bufferSize);
 
-                dataStreamOutput = formatter.format(dataStreamInput);
+                dataStreamOutput = formatter.format((char) dataStreamInput);
 
-                fileWriter.write(writerProcessor, dataStreamOutput);
+                fileWriter.write(streamOut, dataStreamOutput);
 
-            } else {
+            } catch (ReaderException e) {
 
-                break;
+                System.out.println("reached end of file: " + fileIn);
+
+                fileWriter.closeStream(streamOut);
+                fileReader.closeStream(streamIn);
 
             }
 
         }
-
-        fileWriter.closeStream(writerProcessor);
-        fileReader.closeStream(readerProcessor);
 
     }
 
