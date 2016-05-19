@@ -1,7 +1,5 @@
 package comgmail.alexchebotov.formatter;
 
-import comgmail.alexchebotov.formatter.Handler.Handler;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -9,10 +7,10 @@ import java.io.IOException;
 /**
  * The package perform formatting a set of symbols from an incoming stream accordingly to specific rules
  * into an outcoming set of symbols.
- * Incoming stream is provided by "Reader" package from a sources Files or Strings.
- * The stream gets passed "Formatter" to cut out or add in some symbols.
- * The Formatted stream gets passed "Writer" to be written in destination object File or String.
- * "Handler" manages processes, decide what and can interrupt the process.
+ * Incoming stream is provided by "reader" package from a sources Files or Strings.
+ * The stream gets passed "formatter" to cut out or add in some symbols.
+ * The Formatted stream gets passed "writer" to be written in destination object File or String.
+ * "handler" manages processes, decide what and can interrupt the process.
  */
 
 public class Main {
@@ -24,7 +22,7 @@ public class Main {
     private static String formatStyle ;
 
     /**
-     * bufferSize - size of buffer in bits that "Reader" can take from the source at a time
+     * bufferSize - size of buffer in bits that "reader" can take from the source at a time
      */
     private static int bufferSize;
 

@@ -1,4 +1,4 @@
-package comgmail.alexchebotov.formatter.Writer;
+package comgmail.alexchebotov.formatter.writer;
 
 /**
  * Created by protomint on 5/18/16.

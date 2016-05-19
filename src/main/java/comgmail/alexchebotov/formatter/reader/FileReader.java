@@ -1,4 +1,4 @@
-package comgmail.alexchebotov.formatter.Reader;
+package comgmail.alexchebotov.formatter.reader;
 
 import java.io.*;
 
@@ -9,7 +9,7 @@ public class FileReader implements IReader {
 
     /**
      * Create InputStream object
-     * @param fileIn - a file provided by "Handler" which "Reader" takes data from
+     * @param fileIn - a file provided by "handler" which "reader" takes data from
      * @return InputStream stream object
      * @throws FileNotFoundException
      */

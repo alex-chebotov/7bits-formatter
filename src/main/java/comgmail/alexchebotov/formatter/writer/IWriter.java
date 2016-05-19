@@ -1,4 +1,4 @@
-package comgmail.alexchebotov.formatter.Writer;
+package comgmail.alexchebotov.formatter.writer;
 
 import java.io.IOException;
 import java.io.OutputStream;

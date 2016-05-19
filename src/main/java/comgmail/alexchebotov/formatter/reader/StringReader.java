@@ -1,4 +1,4 @@
-package comgmail.alexchebotov.formatter.Reader;
+package comgmail.alexchebotov.formatter.reader;
 
 /**
  * Created by protomint on 5/18/16.

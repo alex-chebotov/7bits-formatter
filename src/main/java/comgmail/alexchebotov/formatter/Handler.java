@@ -1,9 +1,9 @@
-package comgmail.alexchebotov.formatter.Handler;
+package comgmail.alexchebotov.formatter;
 
-import comgmail.alexchebotov.formatter.Formatter.Formatter;
-import comgmail.alexchebotov.formatter.Reader.FileReader;
-import comgmail.alexchebotov.formatter.Reader.ReaderException;
-import comgmail.alexchebotov.formatter.Writer.FileWriter;
+import comgmail.alexchebotov.formatter.formatter.Formatter;
+import comgmail.alexchebotov.formatter.reader.FileReader;
+import comgmail.alexchebotov.formatter.reader.ReaderException;
+import comgmail.alexchebotov.formatter.writer.FileWriter;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.io.OutputStream;
 /**
  * Created by protomint on 5/18/16.
  */
-public class Handler implements IHandler {
+public class Handler {
 
     private File fileIn;
     private File fileOut;
@@ -47,11 +47,11 @@ public class Handler implements IHandler {
 
 //        if (style.equals("Java")) {
 //
-//            Formatter formatter = new Formatter();
+//            formatter formatter = new formatter();
 //
 //        } else {
 //
-//            Formatter formatter = new Formatter();
+//            formatter formatter = new formatter();
 //        }
 
         while (true) {

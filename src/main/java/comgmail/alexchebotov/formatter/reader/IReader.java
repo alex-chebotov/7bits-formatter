@@ -1,4 +1,4 @@
-package comgmail.alexchebotov.formatter.Reader;
+package comgmail.alexchebotov.formatter.reader;
 
 import java.io.IOException;
 import java.io.InputStream;

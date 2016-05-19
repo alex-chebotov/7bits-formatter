@@ -1,7 +1,6 @@
-package comgmail.alexchebotov.formatter.Writer;
+package comgmail.alexchebotov.formatter.writer;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 
 /**
  * Created by protomint on 5/18/16.
@@ -11,7 +10,7 @@ public class FileWriter implements IWriter {
 
     /**
      * Create OutputStream object
-     * @param fileOut - a file provided by "Handler" which "Writer" write data into
+     * @param fileOut - a file provided by "handler" which "writer" write data into
      * @return OutputStream stream object
      * @throws FileNotFoundException
      */
