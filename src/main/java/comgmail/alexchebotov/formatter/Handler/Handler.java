@@ -21,11 +21,11 @@ public class Handler implements IHandler {
     private Formatter formatter;
     private int bufferSize;
 
-    public Handler(File sourceIn, File sourceOut, final String formatterStyle , int bufSize) {
+    public Handler(File sourceIn, File sourceOut, final String formatStyle , int bufSize) {
 
         fileIn = sourceIn;
         fileOut = sourceOut;
-        style = formatterStyle;
+        style = formatStyle;
         bufferSize = bufSize;
 
     }

@@ -21,7 +21,7 @@ public class Main {
     private static File fileOut;
     private static String stringIn;
     private static String stringOut;
-    private static String formatterStyle ;
+    private static String formatStyle ;
 
     /**
      * bufferSize - size of buffer in bits that "Reader" can take from the source at a time
@@ -36,9 +36,9 @@ public class Main {
 
         bufferSize = 1;
 
-        formatterStyle = "Java";
+        formatStyle = "Java";
 
-        Handler handler = new Handler(fileIn, fileOut, formatterStyle, bufferSize);
+        Handler handler = new Handler(fileIn, fileOut, formatStyle, bufferSize);
         handler.process();
 
     }

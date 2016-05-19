@@ -1,0 +1,1 @@
+while(inputStream.hasNext())Echar symbol = inputStream.read()Êif (symbol == "")EwhiteSpaceCount++Ê}}0000000000000000000000000000000Ê
