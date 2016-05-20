@@ -7,45 +7,51 @@ import java.util.HashMap;
  */
 public class Formatter implements IFormatter {
 
-    private HashMap<String, String> symbolDictionary;
+    HashMap<String, String> symbolDictionary  = new HashMap();
+    String characterSet;
+    int tabCounter = 0;
+    String tabSign;
 
+    public void dictionaryInitialize() {
 
-    public Formatter() {
-
-        HashMap symbolDictionary = new HashMap();
-
-        symbolDictionary.put("{", "\n");
+        symbolDictionary.put("{" , "{\n");
+        symbolDictionary.put("}" , "}\n");
+        symbolDictionary.put(";" , ";\n");
+        symbolDictionary.put("tab" , "    ");
 
     }
 
+    public void dictionaryRemoveKey(String key) {
 
+        symbolDictionary.remove(key);
+    }
 
+    public void dictionarySetKeyValue(String key, String value) {
 
-    public char[] format(char dataStreamInput) {
+        symbolDictionary.put(key , value);
+    }
 
-
-        symbolDictionary.put("{", "!");
-        String value = symbolDictionary.get("{");
-        System.out.println(value);
-
-
-
-        char[]characterSet;
-        char[] markTab = {' ' , ' ' , ' ' , ' '};
-        char[] markCurly = {'{' , '\n'};
-        char[] markEndOfLine = {';' , '\n'};
-        char[] markDefault = {dataStreamInput};
+    public String format(char dataStreamInput) {
 
         char character = dataStreamInput;
+        String markDefault = String.valueOf(dataStreamInput);
 
         switch (character) {
 
             case '{':
-                characterSet = markCurly;
+                tabCounter++;
+                tabSign = new String(new char[tabCounter]).replace("\0", symbolDictionary.get("tab").toString());
+                characterSet = symbolDictionary.get("{").toString() + tabSign;
                 break;
 
             case ';':
-                characterSet = markEndOfLine;
+                characterSet = symbolDictionary.get(";").toString() + tabSign;
+                break;
+
+            case '}':
+                tabCounter--;
+                tabSign = new String(new char[tabCounter]).replace("\0", symbolDictionary.get("tab").toString());
+                characterSet = symbolDictionary.get("}").toString() + tabSign;
                 break;
 
             default:
@@ -55,6 +61,5 @@ public class Formatter implements IFormatter {
         }
 
         return characterSet;
-
     }
 }

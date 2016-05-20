@@ -1,5 +1,7 @@
 package comgmail.alexchebotov.formatter;
 
+import com.sun.corba.se.spi.legacy.interceptor.UnknownType;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -26,7 +28,7 @@ public class Main {
      */
     private static int bufferSize;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, UnknownType {
 
         fileIn = new File("/home/protomint/JavaProjects/7bits/Formatter/someJavaCodeInput.txt");
         fileOut = new File("/home/protomint/JavaProjects/7bits/Formatter/someJavaCodeOutput.txt");
