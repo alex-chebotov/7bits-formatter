@@ -7,6 +7,7 @@ import java.io.*;
  */
 public class FileWriter implements IWriter {
 
+    OutputStream stream;
 
     /**
      * Create OutputStream object
@@ -14,21 +15,21 @@ public class FileWriter implements IWriter {
      * @return OutputStream stream object
      * @throws FileNotFoundException
      */
-    public OutputStream createStream(final File fileOut) throws FileNotFoundException {
+    public void createStream(final File fileOut) throws FileNotFoundException {
 
-        return new FileOutputStream(fileOut);
+        this.stream = new FileOutputStream(fileOut);
     }
 
 
-    public void write(OutputStream stream, byte[] dataStreamOutput) throws IOException {
+    public void write(byte[] dataStreamOutput) throws IOException {
 
-        stream.write(dataStreamOutput);
+        this.stream.write(dataStreamOutput);
 
     }
 
-    public void closeStream(OutputStream stream) throws IOException {
+    public void closeStream() throws IOException {
 
-        stream.close();
+        this.stream.close();
 
     }
 

@@ -20,7 +20,6 @@ public class Main {
     private static File fileIn;
     private static File fileOut;
     private static String stringIn;
-    private static String stringOut;
     private static String formatStyle ;
 
     /**
@@ -32,13 +31,13 @@ public class Main {
 
         fileIn = new File("/home/protomint/JavaProjects/7bits/Formatter/someJavaCodeInput.txt");
         fileOut = new File("/home/protomint/JavaProjects/7bits/Formatter/someJavaCodeOutput.txt");
-        stringIn = "while(inputStream.hasNext()){char symbol = inputStream.read();if (symbol == \"\"){whiteSpaceCount++;}}0000000000000000000000000000000;";
+        stringIn = "while(inputStream.hasNext()){char symbol = inputStream.read();if (symbol == \"\"){whiteSpaceCount++;}}000000000000000555555555555555555;";
 
         bufferSize = 1;
 
         formatStyle = "Java";
 
-        Handler handler = new Handler(fileIn, fileOut, formatStyle, bufferSize);
+        Handler handler = new Handler(stringIn, fileOut, formatStyle, bufferSize);
         handler.process();
 
     }

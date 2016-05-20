@@ -2,8 +2,9 @@ package comgmail.alexchebotov.formatter;
 
 import com.sun.corba.se.spi.legacy.interceptor.UnknownType;
 import comgmail.alexchebotov.formatter.formatter.Formatter;
-import comgmail.alexchebotov.formatter.reader.FileReader;
-import comgmail.alexchebotov.formatter.reader.ReaderException;
+import comgmail.alexchebotov.formatter.reader.*;
+import comgmail.alexchebotov.formatter.reader.ReaderFile;
+import comgmail.alexchebotov.formatter.reader.ReaderString;
 import comgmail.alexchebotov.formatter.writer.FileWriter;
 
 import java.io.*;
@@ -17,10 +18,7 @@ public class Handler<T1> {
 
     private T1 source;
     private T1 destination;
-//    private T2 stringIn;
-//    private T2 stringOut;
     private static String style;
-    private Formatter formatter;
     private int bufferSize;
     List<String> stringList;
     String dataStreamStringOutput;
@@ -38,28 +36,18 @@ public class Handler<T1> {
         byte[] dataStreamInput;
         byte[] dataStreamOutput;
         String characterSet;
-        FileReader fileReader;
-        FileWriter fileWriter;
-        InputStream streamIn;
-        OutputStream streamOut;
+        ReaderFile readerFile = null;
+        ReaderString readerString = null;
 
         if (this.source.getClass() == File.class) {
 
-            System.out.println("File--------------------------------------------------");
+            readerFile = new ReaderFile();
+            readerFile.createStream((File) source);
 
-            fileReader = new FileReader();
-            streamIn = fileReader.createStream((File) source);
+        } else if (this.source.getClass() == String.class) {
 
-            fileWriter = new FileWriter();
-            streamOut = fileWriter.createStream((File) destination);
-
-//        } else if (this.source.getClass() == String.class) {
-//
-//            fileReader = new FileReader();
-//            InputStreamReader streamIn = fileReader.createStream((String) source);
-//
-//            fileWriter = new FileWriter();
-//            OutputStream streamOut = fileWriter.createStream((File) destination);
+            readerString = new ReaderString();
+            readerString.createStream((String) source);
 
         } else {
 
@@ -68,9 +56,8 @@ public class Handler<T1> {
 
         }
 
-
-        Formatter formatter = new Formatter();
-        formatter.dictionaryInitialize();
+        FileWriter fileWriter = new FileWriter();
+        fileWriter.createStream((File) destination);
 
 //        if (style.equals("Java")) {
 //
@@ -81,13 +68,29 @@ public class Handler<T1> {
 //            formatter formatter = new formatter();
 //        }
 
+        Formatter formatter = new Formatter();
+        formatter.dictionaryInitialize();
+
         while (true) {
 
             try {
 
                 dataStreamStringOutput = "";
 
-                dataStreamInput = fileReader.read(streamIn, bufferSize);
+                if (this.source.getClass() == File.class) {
+
+                    dataStreamInput = readerFile.read(bufferSize);
+
+                } else if (this.source.getClass() == String.class) {
+
+                    dataStreamInput = readerString.read(bufferSize);
+
+                } else {
+
+                    System.out.println("Unknown source type");
+                    throw new UnknownType();
+
+                }
 
                 for (byte item : dataStreamInput) {
 
@@ -109,20 +112,33 @@ public class Handler<T1> {
 
                     }
 
-                    //System.out.println(dataStreamStringOutput);
-
                 }
 
                 dataStreamOutput = new String(dataStreamStringOutput).getBytes();
 
-                fileWriter.write(streamOut, dataStreamOutput);
+                fileWriter.write(dataStreamOutput);
 
             } catch (ReaderException e) {
 
                 System.out.println("reached end of file: " + source);
 
-                fileWriter.closeStream(streamOut);
-                fileReader.closeStream(streamIn);
+                fileWriter.closeStream();
+
+                if (this.source.getClass() == File.class) {
+
+                    System.out.println("File--------------------------------------------------");
+                    readerFile.closeStream();
+
+                } else if (this.source.getClass() == String.class) {
+
+                    readerString.closeStream();
+
+                } else {
+
+                    System.out.println("Unknown source type");
+                    throw new UnknownType();
+
+                }
 
             }
 
