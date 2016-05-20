@@ -1,11 +1,11 @@
-package comgmail.alexchebotov.formatter.formatter;
+package comgmail.alexchebotov.formatter;
 
 import java.util.HashMap;
 
 /**
  * Created by protomint on 5/18/16.
  */
-public class Formatter implements IFormatter {
+public class Formatter {
 
     HashMap<String, String> symbolDictionary  = new HashMap();
     String characterSet;

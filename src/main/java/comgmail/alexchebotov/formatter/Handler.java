@@ -1,7 +1,6 @@
 package comgmail.alexchebotov.formatter;
 
 import com.sun.corba.se.spi.legacy.interceptor.UnknownType;
-import comgmail.alexchebotov.formatter.formatter.Formatter;
 import comgmail.alexchebotov.formatter.reader.*;
 import comgmail.alexchebotov.formatter.reader.ReaderFile;
 import comgmail.alexchebotov.formatter.reader.ReaderString;
