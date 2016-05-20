@@ -37,8 +37,11 @@ public class Main {
 
         formatStyle = "Java";
 
-        Handler handler = new Handler(stringIn, fileOut, formatStyle, bufferSize);
-        handler.process();
+        Handler handlerFile = new Handler(fileIn, fileOut, formatStyle, bufferSize);
+        handlerFile.process();
+
+        Handler handlerString = new Handler(stringIn, fileOut, formatStyle, bufferSize);
+        handlerString.process();
 
     }
 

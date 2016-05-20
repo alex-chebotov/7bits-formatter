@@ -126,7 +126,6 @@ public class Handler<T1> {
 
                 if (this.source.getClass() == File.class) {
 
-                    System.out.println("File--------------------------------------------------");
                     readerFile.closeStream();
 
                 } else if (this.source.getClass() == String.class) {
