@@ -33,6 +33,7 @@ public class FileReader implements IReader {
         int stopByte;
 
         stopByte = stream.read(buffer);
+        System.out.println(buffer.length);
 
         if (stopByte == -1) {
 

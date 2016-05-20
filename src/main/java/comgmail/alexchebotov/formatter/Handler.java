@@ -40,24 +40,26 @@ public class Handler<T1> {
         String characterSet;
         FileReader fileReader;
         FileWriter fileWriter;
+        InputStream streamIn;
+        OutputStream streamOut;
 
         if (this.source.getClass() == File.class) {
 
-            //System.out.println("File--------------------------------------------------");
+            System.out.println("File--------------------------------------------------");
 
             fileReader = new FileReader();
-            InputStream streamIn = fileReader.createStream((File) source);
+            streamIn = fileReader.createStream((File) source);
 
             fileWriter = new FileWriter();
-            OutputStream streamOut = fileWriter.createStream((File) destination);
+            streamOut = fileWriter.createStream((File) destination);
 
-        } else if (this.source.getClass() == String.class) {
-
-            fileReader = new FileReader();
-            InputStreamReader streamIn = fileReader.createStream((String) source);
-
-            fileWriter = new FileWriter();
-            OutputStream streamOut = fileWriter.createStream((File) destination);
+//        } else if (this.source.getClass() == String.class) {
+//
+//            fileReader = new FileReader();
+//            InputStreamReader streamIn = fileReader.createStream((String) source);
+//
+//            fileWriter = new FileWriter();
+//            OutputStream streamOut = fileWriter.createStream((File) destination);
 
         } else {
 
