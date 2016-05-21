@@ -1,11 +1,11 @@
 package comgmail.alexchebotov.formatter;
 
 import com.sun.corba.se.spi.legacy.interceptor.UnknownType;
-import comgmail.alexchebotov.formatter.reader.ReaderException;
 import comgmail.alexchebotov.formatter.reader.ReaderFile;
 import comgmail.alexchebotov.formatter.reader.ReaderString;
 import comgmail.alexchebotov.formatter.writer.FileWriter;
 
+import javax.imageio.IIOException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -134,7 +134,7 @@ public class Handler<T1> {
 
                 fileWriter.write(dataStreamOutput);
 
-            } catch (ReaderException e) {
+            } catch (IIOException e) {
 
                 System.out.println("reached end of file: " + source);
 

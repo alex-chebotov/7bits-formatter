@@ -27,36 +27,21 @@ public class ReaderFile implements IReader {
      * @return symbols by symbols extracted from the data portions
      * @throws IOException
      */
-    public byte[] read(int bufferSize) throws ReaderException {
+    public byte[] read(int bufferSize) throws IOException {
 
         byte[] buffer = new byte[bufferSize];
 
         int stopByte;
 
-        try {
+        stopByte = this.stream.read(buffer);
 
-            stopByte = this.stream.read(buffer);
+        if (stopByte == -1) {
 
-            if (stopByte == -1) {
-
-                this.stream.close();
-                throw new IOException();
-
-            }
-
-        } catch (IOException e) {
-
-            ReaderException exception = new ReaderException(e);
-            throw exception;
-
-        } finally {
-
-            System.out.println("Hi");
-            return buffer;
+            this.stream.close();
 
         }
 
-
+            return buffer;
 
     }
 

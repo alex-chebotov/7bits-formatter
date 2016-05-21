@@ -29,26 +29,21 @@ public class ReaderString implements IReader {
      * @return symbols by symbols extracted from the data portions
      * @throws IOException
      */
-    public byte[] read(int bufferSize) throws ReaderException {
+    public byte[] read(int bufferSize) throws IOException {
 
         byte[] characterSet = null;
 
-        try {
 
-            int character = this.stream.read();
+        int character = this.stream.read();
 
-            characterSet = new byte[] {(byte) character};
+        characterSet = new byte[] {(byte) character};
 
-            if (character == -1) {
+        if (character == -1) {
 
-                throw new IOException();
+            this.stream.close();
 
-            }
-
-        } catch (IOException e) {
-
-                throw new ReaderException(e);
         }
+
 
         return characterSet;
     }

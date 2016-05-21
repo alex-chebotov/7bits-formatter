@@ -13,6 +13,6 @@ public interface IReader {
      * @return array of bytes extracted from the source
      * @throws IOException
      */
-    byte[] read(int bufferSize) throws ReaderException;
+    byte[] read(int bufferSize) throws IOException;
 
 }
