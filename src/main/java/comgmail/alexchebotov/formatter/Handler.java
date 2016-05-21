@@ -156,28 +156,6 @@ public class Handler<T1> {
 
                 }
 
-            } catch (IOException e) {
-
-                System.out.println("reached end of file: " + source);
-
-                fileWriter.closeStream();
-
-                if (this.source.getClass() == File.class) {
-
-                    readerFile.closeStream();
-                    break;
-
-                } else if (this.source.getClass() == String.class) {
-
-                    readerString.closeStream();
-                    break;
-
-                } else {
-
-                    throw new UnknownType("Unknown source type");
-
-                }
-
             }
 
         }

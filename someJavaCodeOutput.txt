@@ -1,0 +1,8 @@
+while(inputStream.hasNext()){
+    char symbol = inputStream.read();
+    if (symbol == ""){
+        whiteSpaceCount++;
+        
+    }
+}0000000000000000000000000000000;
+

@@ -27,7 +27,7 @@ public class ReaderFile implements IReader {
      * @return symbols by symbols extracted from the data portions
      * @throws IOException
      */
-    public byte[] read(int bufferSize) throws IOException {
+    public byte[] read(int bufferSize) throws ReaderException {
 
         byte[] buffer = new byte[bufferSize];
 
@@ -39,19 +39,24 @@ public class ReaderFile implements IReader {
 
             if (stopByte == -1) {
 
-                //System.out.println("reached end of file: " + this.source);
-                throw new ReaderException();
+                this.stream.close();
+                throw new IOException();
+
             }
 
-            return buffer;
+        } catch (IOException e) {
 
-        } catch (ReaderException e) {
+            ReaderException exception = new ReaderException(e);
+            throw exception;
 
-            //e.printStackTrace();
-            this.stream.close();
+        } finally {
+
+            System.out.println("Hi");
             return buffer;
 
         }
+
+
 
     }
 

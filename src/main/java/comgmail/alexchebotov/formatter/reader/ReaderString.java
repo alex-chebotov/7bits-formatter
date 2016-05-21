@@ -1,6 +1,9 @@
 package comgmail.alexchebotov.formatter.reader;
 
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
 
 /**
  * Reads data from String source symbol by symbol and returns array of bytes
@@ -26,16 +29,25 @@ public class ReaderString implements IReader {
      * @return symbols by symbols extracted from the data portions
      * @throws IOException
      */
-    public byte[] read(int bufferSize) throws IOException {
+    public byte[] read(int bufferSize) throws ReaderException {
 
-        int character = this.stream.read();
+        byte[] characterSet = null;
 
-        byte[] characterSet = new byte[] {(byte) character};
+        try {
 
-        if (character == -1) {
+            int character = this.stream.read();
 
-            throw new ReaderException();
+            characterSet = new byte[] {(byte) character};
 
+            if (character == -1) {
+
+                throw new IOException();
+
+            }
+
+        } catch (IOException e) {
+
+                throw new ReaderException(e);
         }
 
         return characterSet;

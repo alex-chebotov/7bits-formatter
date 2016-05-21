@@ -37,7 +37,7 @@ final class Main {
         fileOut = new File("/home/protomint/JavaProjects/7bits/Formatter/someJavaCodeOutput.txt");
         stringIn = "while(inputStream.hasNext()){char symbol = inputStream.read();if (symbol == \"\"){whiteSpaceCount++;}}000000000000000555555555555555555;";
 
-        bufferSize = 1;
+        bufferSize = 1024;
 
         formatStyle = "Java";
 
