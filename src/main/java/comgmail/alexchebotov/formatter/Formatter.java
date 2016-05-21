@@ -3,35 +3,38 @@ package comgmail.alexchebotov.formatter;
 import java.util.HashMap;
 
 /**
- * Created by protomint on 5/18/16.
+ * Implements specific formatting rules over input data. Takes one character at a time
  */
 public class Formatter {
 
-    HashMap<String, String> symbolDictionary  = new HashMap();
-    String characterSet;
-    int tabCounter = 0;
-    String tabSign;
+    private HashMap<String, String> symbolDictionary  = new HashMap();
+    private String characterSet;
+    private int tabCounter = 0;
+    private String tabSign;
 
+    /**
+     * Initialize set of formatting rules
+     */
     public void dictionaryInitialize() {
 
         symbolDictionary.put("{" , "{\n");
-        symbolDictionary.put("}" , "}\n");
+        symbolDictionary.put("}" , "\n");
         symbolDictionary.put(";" , ";\n");
         symbolDictionary.put("tab" , "    ");
 
     }
 
-    public void dictionaryRemoveKey(String key) {
+//    public void dictionarySetKeyValue(String key, String value) {
+//
+//        symbolDictionary.put(key , value);
+//    }
 
-        symbolDictionary.remove(key);
-    }
-
-    public void dictionarySetKeyValue(String key, String value) {
-
-        symbolDictionary.put(key , value);
-    }
-
-    public String format(char dataStreamInput) {
+    /**
+     * Takes one character at a time and return string object
+     * @param dataStreamInput - char
+     * @return - string
+     */
+    public String format(final char dataStreamInput) {
 
         char character = dataStreamInput;
         String markDefault = String.valueOf(dataStreamInput);
@@ -51,7 +54,7 @@ public class Formatter {
             case '}':
                 tabCounter--;
                 tabSign = new String(new char[tabCounter]).replace("\0", symbolDictionary.get("tab").toString());
-                characterSet = symbolDictionary.get("}").toString() + tabSign;
+                characterSet = symbolDictionary.get("}").toString() + tabSign + "}";
                 break;
 
             default:
@@ -61,5 +64,6 @@ public class Formatter {
         }
 
         return characterSet;
+
     }
 }

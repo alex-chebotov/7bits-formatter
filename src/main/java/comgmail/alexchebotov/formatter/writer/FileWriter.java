@@ -3,7 +3,7 @@ package comgmail.alexchebotov.formatter.writer;
 import java.io.*;
 
 /**
- * Created by protomint on 5/18/16.
+ * Takes bytes array and writes into specific file
  */
 public class FileWriter implements IWriter {
 

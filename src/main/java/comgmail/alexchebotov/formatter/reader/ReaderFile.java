@@ -3,11 +3,12 @@ package comgmail.alexchebotov.formatter.reader;
 import java.io.*;
 
 /**
- * Created by protomint on 5/18/16.
+ * Reads data from File source by "bufferSize" portions and returns array of bytes
  */
 public class ReaderFile implements IReader {
 
     private InputStream stream;
+    private File source;
 
     /**
      * Create InputStream object
@@ -15,31 +16,43 @@ public class ReaderFile implements IReader {
      */
     public void createStream(final File source) throws FileNotFoundException {
 
+        this.source = source;
         this.stream = new FileInputStream(source);
 
     }
 
     /**
      * Read data from source by "bufferSize" portions
-     * @param bufferSize - size of the portion in bits
+     * @param bufferSize - size of the portion in bytes, not null and equals or greater than 1
      * @return symbols by symbols extracted from the data portions
      * @throws IOException
      */
-    public byte[] read(int bufferSize) throws ReaderException, IOException {
+    public byte[] read(int bufferSize) throws IOException {
 
         byte[] buffer = new byte[bufferSize];
 
         int stopByte;
 
-        stopByte = this.stream.read(buffer);
+        try {
 
-        if (stopByte == -1) {
+            stopByte = this.stream.read(buffer);
 
-            throw new ReaderException();
+            if (stopByte == -1) {
+
+                //System.out.println("reached end of file: " + this.source);
+                throw new ReaderException();
+            }
+
+            return buffer;
+
+        } catch (ReaderException e) {
+
+            //e.printStackTrace();
+            this.stream.close();
+            return buffer;
 
         }
 
-        return buffer;
     }
 
     /**

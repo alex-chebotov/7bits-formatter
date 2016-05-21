@@ -3,9 +3,9 @@ package comgmail.alexchebotov.formatter.reader;
 import java.io.*;
 
 /**
- * Created by protomint on 5/18/16.
+ * Reads data from String source symbol by symbol and returns array of bytes
  */
-public class ReaderString<T1> implements IReader {
+public class ReaderString implements IReader {
 
     private Reader stream;
 
@@ -26,7 +26,7 @@ public class ReaderString<T1> implements IReader {
      * @return symbols by symbols extracted from the data portions
      * @throws IOException
      */
-    public byte[] read(int bufferSize) throws ReaderException, IOException {
+    public byte[] read(int bufferSize) throws IOException {
 
         int character = this.stream.read();
 

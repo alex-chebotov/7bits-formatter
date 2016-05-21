@@ -3,14 +3,14 @@ package comgmail.alexchebotov.formatter.reader;
 import java.io.IOException;
 
 /**
- * Created by protomint on 5/18/16.
+ * Reads data from source (binary or text) by "bufferSize" portions and returns array of bytes
  */
 public interface IReader {
 
     /**
-     * Read data from source by "bufferSize" portions
-     * @param bufferSize - size of the portion in bits
-     * @return symbols by symbols extracted from the data portions
+     * Read data from source by "bufferSize" portions and return array of bytes
+     * @param bufferSize - size of the portion in bytes
+     * @return array of bytes extracted from the source
      * @throws IOException
      */
     byte[] read(int bufferSize) throws IOException;

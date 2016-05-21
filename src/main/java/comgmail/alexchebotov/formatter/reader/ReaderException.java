@@ -7,10 +7,4 @@ import java.io.IOException;
  */
 public class ReaderException extends IOException {
 
-    public boolean endOfFile() {
-
-        return true;
-
-    }
-
 }

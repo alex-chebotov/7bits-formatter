@@ -7,15 +7,19 @@ import java.io.IOException;
 
 
 /**
- * The package perform formatting a set of symbols from an incoming stream accordingly to specific rules
+ * The package performs formatting a set of symbols from an incoming stream accordingly to specific rules
  * into an outcoming set of symbols.
  * Incoming stream is provided by "reader" package from a sources Files or Strings.
  * The stream gets passed "formatter" to cut out or add in some symbols.
  * The Formatted stream gets passed "writer" to be written in destination object File or String.
- * "handler" manages processes, decide what and can interrupt the process.
+ * "handler" manages processes, decide what and when main process could be interrupted.
  */
 
-public class Main {
+final class Main {
+
+    private Main() {
+
+    }
 
     private static File fileIn;
     private static File fileOut;
@@ -27,7 +31,7 @@ public class Main {
      */
     private static int bufferSize;
 
-    public static void main(String[] args) throws IOException, UnknownType {
+    public static void main(final String[] args) throws IOException, UnknownType {
 
         fileIn = new File("/home/protomint/JavaProjects/7bits/Formatter/someJavaCodeInput.txt");
         fileOut = new File("/home/protomint/JavaProjects/7bits/Formatter/someJavaCodeOutput.txt");
@@ -40,8 +44,8 @@ public class Main {
         Handler handlerFile = new Handler(fileIn, fileOut, formatStyle, bufferSize);
         handlerFile.process();
 
-        Handler handlerString = new Handler(stringIn, fileOut, formatStyle, bufferSize);
-        handlerString.process();
+//        Handler handlerString = new Handler(stringIn, fileOut, formatStyle, bufferSize);
+//        handlerString.process();
 
     }
 

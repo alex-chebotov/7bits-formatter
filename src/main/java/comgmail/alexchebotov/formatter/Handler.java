@@ -1,17 +1,20 @@
 package comgmail.alexchebotov.formatter;
 
 import com.sun.corba.se.spi.legacy.interceptor.UnknownType;
-import comgmail.alexchebotov.formatter.reader.*;
+import comgmail.alexchebotov.formatter.reader.ReaderException;
 import comgmail.alexchebotov.formatter.reader.ReaderFile;
 import comgmail.alexchebotov.formatter.reader.ReaderString;
 import comgmail.alexchebotov.formatter.writer.FileWriter;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by protomint on 5/18/16.
+ * Takes a source file or string, decides what a method going to be invoked to read chunk of data from them,
+ * then picks what a formatting style going to be implemented, finally formatted data pass to be written in file.
+ * @param <T1> permit to use different sources whether binary or text.
  */
 public class Handler<T1> {
 
@@ -19,10 +22,18 @@ public class Handler<T1> {
     private T1 destination;
     private static String style;
     private int bufferSize;
-    List<String> stringList;
-    String dataStreamStringOutput;
+    private List<String> stringList;
+    private String dataStreamStringOutput;
 
-    public Handler(T1 source, T1 destination, final String formatStyle , int bufSize) throws UnknownType {
+    /**
+     * Class constructor. See JavaDoc for Class Handler
+     * @param source - file or string which data to be transformed
+     * @param destination - file in which transformed data to be written
+     * @param formatStyle - formatting style, for instance, "Java"
+     * @param bufSize - data portions reader would take at a time
+     * @throws UnknownType
+     */
+    public Handler(final T1 source, final T1 destination, final String formatStyle, final int bufSize) throws UnknownType {
 
         this.source = source;
         this.destination = destination;
@@ -30,6 +41,12 @@ public class Handler<T1> {
         bufferSize = bufSize;
     }
 
+    /**
+     * Perform Handler class purpose
+     * @throws IOException
+     * @throws UnknownType
+     * Most likely it would better split up this (class) method two class with one interface or use generics for source types
+     */
     public void process() throws IOException, UnknownType {
 
         byte[] dataStreamInput;
@@ -126,15 +143,38 @@ public class Handler<T1> {
                 if (this.source.getClass() == File.class) {
 
                     readerFile.closeStream();
+                    break;
 
                 } else if (this.source.getClass() == String.class) {
 
                     readerString.closeStream();
+                    break;
 
                 } else {
 
-                    System.out.println("Unknown source type");
-                    throw new UnknownType();
+                    throw new UnknownType("Unknown source type");
+
+                }
+
+            } catch (IOException e) {
+
+                System.out.println("reached end of file: " + source);
+
+                fileWriter.closeStream();
+
+                if (this.source.getClass() == File.class) {
+
+                    readerFile.closeStream();
+                    break;
+
+                } else if (this.source.getClass() == String.class) {
+
+                    readerString.closeStream();
+                    break;
+
+                } else {
+
+                    throw new UnknownType("Unknown source type");
 
                 }
 
