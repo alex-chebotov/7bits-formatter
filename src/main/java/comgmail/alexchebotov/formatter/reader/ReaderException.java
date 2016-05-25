@@ -5,9 +5,9 @@ package comgmail.alexchebotov.formatter.reader;
  */
 public class ReaderException extends Exception {
 
-    public ReaderException(final Throwable e) {
+    public ReaderException(String string, final Throwable e) {
 
-        super(e);
+        super(string, e);
 
     }
 

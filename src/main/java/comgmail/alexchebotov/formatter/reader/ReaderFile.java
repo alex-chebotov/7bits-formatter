@@ -7,41 +7,55 @@ import java.io.*;
  */
 public class ReaderFile implements IReader {
 
-    private InputStream stream;
-    private File source;
+    private Reader stream;
+    private int character;
+    private boolean isEndOfFile = false;
 
     /**
      * Create InputStream object
-     * @throws FileNotFoundException
+     * @throws ReaderException
      */
-    public void createStream(final File source) throws FileNotFoundException {
+    public void createStream(final File source) throws ReaderException {
 
-        this.source = source;
-        this.stream = new FileInputStream(source);
+        try {
 
+            this.stream = new InputStreamReader(new FileInputStream(source), "utf-8");
+
+        } catch (IOException e) {
+
+            throw new ReaderException("Some issue to create Reader's stream", e);
+
+        }
     }
 
     /**
-     * Read data from source by "bufferSize" portions
-     * @param bufferSize - size of the portion in bytes, not null and equals or greater than 1
-     * @return symbols by symbols extracted from the data portions
-     * @throws IOException
+     * Reads character by character from file and returns one character at a time
+     * @return one character
+     * @throws ReaderException
      */
-    public byte[] read(int bufferSize) throws IOException {
+    public char read() throws ReaderException {
 
-        byte[] buffer = new byte[bufferSize];
+        try {
 
-        int stopByte;
+            character = this.stream.read();
 
-        stopByte = this.stream.read(buffer);
+            if (character == -1) {
 
-        if (stopByte == -1) {
+                isEndOfFile = true;
 
-            this.stream.close();
+            }
 
+            return (char) character;
+
+        } catch (IOException e) {
+
+            throw new ReaderException("Some issue to read from source", e);
         }
+    }
 
-            return buffer;
+    public boolean isEndOfSource() {
+
+        return isEndOfFile;
 
     }
 
@@ -49,10 +63,15 @@ public class ReaderFile implements IReader {
      * Close stream source
      * @throws IOException
      */
-    public void closeStream() throws IOException {
+    public void closeStream() throws ReaderException {
 
-        this.stream.close();
+        try {
 
+            this.stream.close();
+
+        } catch (IOException e) {
+
+            throw new ReaderException("Some issue with Reader's stream", e);
+        }
     }
-
 }

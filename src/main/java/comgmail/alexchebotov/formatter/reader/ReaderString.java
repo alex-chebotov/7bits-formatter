@@ -1,9 +1,6 @@
 package comgmail.alexchebotov.formatter.reader;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
+import java.io.*;
 
 /**
  * Reads data from String source symbol by symbol and returns array of bytes
@@ -11,51 +8,73 @@ import java.io.StringReader;
 public class ReaderString implements IReader {
 
     private Reader stream;
+    private int character;
+    private boolean isEndOfSource = false;
 
     /**
      * Create InputStream object
      * @return InputStream stream object
-     * @throws FileNotFoundException
+     * @throws ReaderException
      */
-    public void createStream(final String source) throws FileNotFoundException {
+    public void createStream(final String source) throws ReaderException {
 
-        this.stream = new StringReader(source);
+        try {
 
+            this.stream = new StringReader(source);
+
+        } catch (Exception e) {
+
+            throw new ReaderException("Some issue to create Reader's stream for" + source.toString(), e);
+
+        }
     }
 
     /**
      * Read data from source by "bufferSize" portions
-     * @param bufferSize - size of the portion in bits
      * @return symbols by symbols extracted from the data portions
-     * @throws IOException
+     * @throws ReaderException
      */
-    public byte[] read(int bufferSize) throws IOException {
+    public char read() throws ReaderException {
 
-        byte[] characterSet = null;
+        try {
 
+            character = this.stream.read();
 
-        int character = this.stream.read();
+            if (character == -1) {
 
-        characterSet = new byte[] {(byte) character};
+                isEndOfSource = true;
 
-        if (character == -1) {
+            }
 
-            this.stream.close();
+            return (char) character;
 
+        } catch (IOException e) {
+
+            throw new ReaderException("Some issue to read from source", e);
         }
+    }
 
 
-        return characterSet;
+    public boolean isEndOfSource() {
+
+        return isEndOfSource;
+
     }
 
     /**
      * Close stream source
-     * @throws IOException
+     * @throws ReaderException
      */
-    public void closeStream() throws IOException {
+    public void closeStream() throws ReaderException {
 
-        this.stream.close();
+        try {
 
+            this.stream.close();
+
+        } catch (IOException e) {
+
+            throw new ReaderException("Some issue with Reader's stream", e);
+        }
     }
 
 }

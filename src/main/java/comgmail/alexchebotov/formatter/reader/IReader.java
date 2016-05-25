@@ -1,18 +1,18 @@
 package comgmail.alexchebotov.formatter.reader;
 
-import java.io.IOException;
-
 /**
- * Reads data from source (binary or text) by "bufferSize" portions and returns array of bytes
+ * Reads data from a source
  */
 public interface IReader {
 
     /**
-     * Read data from source by "bufferSize" portions and return array of bytes
-     * @param bufferSize - size of the portion in bytes
-     * @return array of bytes extracted from the source
-     * @throws IOException
+     * Reads data from a source and returns one character at a time
+     * @return a character extracted from the source
      */
-    byte[] read(int bufferSize) throws IOException;
+    char read() throws ReaderException;
+
+    boolean isEndOfSource();
+
+    void closeStream() throws ReaderException;
 
 }
