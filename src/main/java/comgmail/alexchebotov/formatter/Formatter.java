@@ -1,16 +1,15 @@
 package comgmail.alexchebotov.formatter;
 
 import comgmail.alexchebotov.formatter.reader.IReader;
-import comgmail.alexchebotov.formatter.reader.ReaderException;
 import comgmail.alexchebotov.formatter.writer.IWriter;
-import comgmail.alexchebotov.formatter.writer.WriterException;
+
 
 import java.util.HashMap;
 
 /**
- * Implements specific formatting rules over input data. Takes one character at a time
+ * Handles streams and implements specific formatting rules over input data. Takes one character at a time
  */
-public class Formatter {
+class Formatter {
 
     private IReader reader;
     private IWriter writer;
@@ -19,97 +18,85 @@ public class Formatter {
     private char dataInput;
     private int tabCounter;
     private String tabSign;
-    String markDefault;
+    private String markDefault;
 
-
-    public Formatter(IReader reader, IWriter writer) {
+    /**
+     * Class constructor
+     * @param reader - stream of input data, File or String
+     * @param writer - stream of output data, File or String
+     */
+    Formatter(final IReader reader, final IWriter writer) {
 
         this.reader = reader;
         this.writer = writer;
-        this.symbolDictionary = new HashMap();
-        this.tabCounter = 0;
-
+        this.symbolDictionary = new HashMap();  // describes specific formatting rules
+        this.tabCounter = 0;    // counts how much times tabulation sign must be added
     }
 
     /**
      * Initialize set of formatting rules
      */
-    public void dictionaryInitialize() {
+    void dictionaryInitialize() {
 
         this.symbolDictionary.put("{" , "{\n");
         this.symbolDictionary.put("}" , "\n");
         this.symbolDictionary.put(";" , ";\n");
         this.symbolDictionary.put("tab" , "    ");
-
     }
 
-
-    public void format() throws FormatterException {
+    /**
+     * Handles streams and implements specific formatting rules over input data. Takes one character at a time
+     * Return nothing
+     * @throws FormatterException - all exceptions caught in the method gets inside FormatterException and goes ahead
+     */
+    void format() throws FormatterException {
 
         while (true) {
-
             try {
-
                 dataOutput = "";
-
                 dataInput = reader.read();
-
                 if (reader.isEndOfSource()) {
-
                     reader.closeStream();
                     break;
                 }
-
-            } catch (ReaderException e) {
-
+            } catch (Exception e) {
                 throw new FormatterException(e);
-
             }
-
             markDefault = String.valueOf(dataInput);
 
             switch (dataInput) {
-
                 case '{':
                     tabCounter++;
-                    tabSign = new String(new char[tabCounter]).replace("\0", symbolDictionary.get("tab").toString());
-                    dataOutput = symbolDictionary.get("{").toString() + tabSign;
+                    tabSign = new String(new char[tabCounter]).replace("\0", symbolDictionary.get("tab"));
+                    dataOutput = symbolDictionary.get("{") + tabSign;
                     break;
 
                 case ';':
-                    dataOutput = symbolDictionary.get(";").toString() + tabSign;
+                    dataOutput = symbolDictionary.get(";") + tabSign;
                     break;
 
                 case '}':
                     tabCounter--;
-                    tabSign = new String(new char[tabCounter]).replace("\0", symbolDictionary.get("tab").toString());
-                    dataOutput = symbolDictionary.get("}").toString() + tabSign + "}";
+                    tabSign = new String(new char[tabCounter]).replace("\0", symbolDictionary.get("tab"));
+                    dataOutput = symbolDictionary.get("}") + tabSign + "}";
                     break;
 
                 default:
                     dataOutput = markDefault;
                     break;
-
             }
 
             try {
-
                 writer.write(dataOutput);
                 //System.out.println(characterSet);
-
-            } catch (WriterException e) {
-
+            } catch (Exception e) {
                 throw new FormatterException(e);
-
             }
         }
 
         try {
-
             writer.closeStream();
-
-        } catch (WriterException e) {
-
+        } catch (Exception e) {
             throw new FormatterException(e);
         }
     }

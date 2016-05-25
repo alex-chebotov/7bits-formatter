@@ -1,9 +1,7 @@
 package comgmail.alexchebotov.formatter;
 
-import comgmail.alexchebotov.formatter.reader.ReaderException;
 import comgmail.alexchebotov.formatter.reader.ReaderFile;
 import comgmail.alexchebotov.formatter.reader.ReaderString;
-import comgmail.alexchebotov.formatter.writer.WriterException;
 import comgmail.alexchebotov.formatter.writer.WriterFile;
 import comgmail.alexchebotov.formatter.writer.WriterString;
 
@@ -11,8 +9,8 @@ import java.io.File;
 
 
 /**
- * The package performs formatting a set of symbols from an incoming stream accordingly to specific rules
- * into an outcoming set of symbols.
+ * The package performs formatting a set of symbols from an incoming stream into an outcoming set of symbols
+ * accordingly to specific rules.
  * Incoming stream is provided by "reader" package from a sources Files or Strings.
  * The stream gets passed "formatter" to cut out or add in some symbols.
  * The Formatted stream gets passed "writer" to be written in destination object File or String.
@@ -20,7 +18,6 @@ import java.io.File;
 final class Main {
 
     private Main() {
-
     }
 
     private static File fileIn;
@@ -29,8 +26,8 @@ final class Main {
     private static String stringOut;
 
     /**
-     *
-     * @param args
+     * Creates streams and calls Formatter
+     * @param args - not used
      */
     public static void main(final String[] args) {
 
@@ -52,10 +49,8 @@ final class Main {
             readerString = new ReaderString();
             readerString.createStream(stringIn);
 
-        } catch (ReaderException e) {
-
-            System.out.println(e);
-
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         try {
@@ -65,9 +60,8 @@ final class Main {
 
             writerString = new WriterString();
 
-        } catch (WriterException e) {
-
-            System.out.println(e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         try {
@@ -79,12 +73,15 @@ final class Main {
             formatter = new Formatter(readerString, writerString);
             formatter.dictionaryInitialize();
             formatter.format();
-            stringOut = writerString.getData();
+            try {
+                stringOut = writerString.getData();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             System.out.println(stringOut);
 
-        } catch (FormatterException e) {
-
-            System.out.println(e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

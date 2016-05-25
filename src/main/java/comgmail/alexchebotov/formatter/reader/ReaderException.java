@@ -1,14 +1,11 @@
 package comgmail.alexchebotov.formatter.reader;
 
 /**
- * Created by protomint on 5/18/16.
+ * All exceptions caught gets inside ReaderException and goes ahead
  */
-public class ReaderException extends Exception {
+class ReaderException extends Exception {
 
-    public ReaderException(String string, final Throwable e) {
-
+    ReaderException(String string, final Throwable e) {
         super(string, e);
-
     }
-
 }

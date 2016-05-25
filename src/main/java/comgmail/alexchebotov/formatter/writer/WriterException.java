@@ -1,13 +1,11 @@
 package comgmail.alexchebotov.formatter.writer;
 
 /**
- * Created by protomint on 5/24/16.
+ * All exceptions caught gets inside WriterException and goes ahead
  */
-public class WriterException extends Exception {
+class WriterException extends Exception {
 
-    public WriterException(final Throwable e) {
-
-        super(e);
-
+    WriterException(String string, final Throwable e) {
+        super(string, e);
     }
 }

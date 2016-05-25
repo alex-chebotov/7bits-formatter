@@ -1,13 +1,11 @@
 package comgmail.alexchebotov.formatter;
 
 /**
- * Created by protomint on 5/24/16.
+ * All exceptions caught gets inside FormatterException and goes ahead
  */
-public class FormatterException extends Exception {
+class FormatterException extends Exception {
 
-    public FormatterException(final Throwable e) {
-
+    FormatterException(final Throwable e) {
         super(e);
-
     }
 }
